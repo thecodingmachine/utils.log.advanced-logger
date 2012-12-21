@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+	<displayName>Advanced Logger</displayName>
+	<shortDescription>This package can be used to perform advanced logging: the logs are stored in database (using the DBLogger), then are
+	analysed and aggregated (using the LogStats package). This package provides a way to send a mail automatically every night to the 
+	admin, summarizing the logs of the day.</shortDescription>
+	<docUrl></docUrl>
+	<logo>logo.png</logo>
+	<requires>
+		<require>AdvancedMailLogger.php</require>
+	</requires>
+	<adminRequires>
+		<require>controllers/AdvancedMailLoggerInstallController.php</require>
+		<require>controllers/AdvancedMailLoggerController.php</require>
+		<require>AdvancedMailLoggerAdmin.php</require>
+	</adminRequires>
+	<dependencies>
+		<dependency>
+			<group>utils/log</group>
+			<name>log_stats</name>
+			<version>>=1.0</version>
+		</dependency>
+		<dependency>
+			<group>utils/mailer</group>
+			<name>smtp-mail-service</name>
+			<version>>=1.0</version>
+		</dependency>
+	</dependencies>
+	<install>
+		<url>mouf/advancedmailloggerinstall/</url>
+	</install>
+</package>

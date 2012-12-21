@@ -1,0 +1,40 @@
+{
+    "name": "mouf/utils.log.advanced-logger",
+    "description": "This package can be used to perform advanced logging: the logs are stored in database (using the DBLogger), then are analysed and aggregated (using the LogStats package). This package provides a way to send a mail automatically every night to the admin, summarizing the logs of the day.",
+    "keywords": ["advanced logging", "log database", "aggregation", "mouf"],
+    "homepage": "https://github.com/thecodingmachine/utils.log.advanced-logger",
+    "type": "mouf-library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Négrier",
+            "email": "d.negrier@thecodingmachine.com",
+            "homepage": "http://mouf-php.com"
+        }
+    ],
+    "require": {
+    	"php": ">=5.3.0",
+    	"mouf/mouf-installer": ">=2.0.0-dev",
+        "mouf/utils.log.log-stat": "~2.0",
+        "mouf/utils.mailer.smtp-mail-service": "~2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mouf": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+	     "mouf": {
+	     	"install": [
+	    		{
+	    			"type": "url",
+	    			"url": "advancedmailloggerinstall/"
+	    		}
+    		],
+			"require-admin": [
+    			"src/AdvancedMailLoggerAdmin.php"
+    		]
+		}
+    }
+}

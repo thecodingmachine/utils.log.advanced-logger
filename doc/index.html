@@ -1,0 +1,69 @@
+<h1>Advanced Logger</h1>
+
+<h2>What is the advanced logger?</h2>
+
+<p>The Advanced Logger is a package enabling you to analyse your logs easily. It provides ready to use stats and can send those stats via mail once a day.</p>
+<p>Below is a sample output of typical log stats screen.</p>
+
+<img src="screenshot-stats.png" alt="Advanced logger screenshot" />
+
+<h2>Should I use the advanced logger?</h2>
+
+<p>When your application starts to grow, the logs will start filling very quickly. You might have 10 messages adding in your logs every second.
+Keeping track of what is important and what is not becomes challenging. And if an interesting log message is hidden in a flow of thousands of
+not so interesting messages, you will certainly miss it. This is where the Advanced Logger becomes useful.</p>
+
+<p>As you can see on the screenshot, the advanced logger will break the log messages into categories and will display stats about those categories.
+In a glimpse, you can see what is going on on your server, and the numerous log messages are no more poluting the more seldom log messages.</p>
+
+<p>So you should use the advanced logger if you start to feel that your logs are being useless because you have too much traffic on your website.</p>
+
+<h2>Quick tutorial</h2>
+
+<p>The first step is to install the AdvancedLogger package. If you start from a fresh Mouf install, Mouf will install all the dependencies. Amongest other things, you should be asked to:</p>
+<ul>
+	<li>Configure a database connection (to store the logs and the log stats).</li>
+	<li>Configure the name of the table storing the logs (DbLogger install). The table will be created in the install process.</li>
+	<li>Configure the name of the table storing the stats (LogStats install). The table will be created in the install process.</li>
+	<li>Configure the name of your mail server (SmtpMailService install). If you do not have a mail server, you can easily use a Gmail account instead.</li>
+</ul>
+
+<p>Once everything is set-up, you should have a number of new instances created. The logger you should use to store things in database is the "dbLoggerWithCategories" 
+(you can/should rename that if you want). You use this instance the same way you use any logger instance. Here is an exemple:</p>
+
+<pre>
+// Log an error message
+Mouf::getDbLoggerWithCategories()->error("This is my error message");
+// Log an error message and attach an exception
+Mouf::getDbLoggerWithCategories()->error("This is my error message with an exception attached", $e);
+// Log a "fatal" message directly from the exception
+Mouf::getDbLoggerWithCategories()->fatal($e);
+// Log a "warn" message
+Mouf::getDbLoggerWithCategories()->warn("This is a warning message");
+// Log an "info" message
+Mouf::getDbLoggerWithCategories()->info("This is an info message");
+...
+</pre>
+
+
+
+<h2>How does it work?</h2>
+
+<p>Using the Advanced Logger is fairly straightforward. All you have to do install the package and start using the logger.</p>
+<p>The Advanced Logger itself is not doing much, but it is relying on a lot of packages to provide those useful stats:</p>
+
+<img src="architecture.png" alt="Advanced logger screenshot" />
+
+<ul>
+	<li><b>DbLogger</b>: The Advanced Logger is computing stats from the "logs" table that is stored in a MySQL database.</li>
+	<li><b>DB_Connection</b>: The connection to the database is provided by the DB_Connection package.</li>
+	<li><b>DbStats</b>: When a message is added in the "logs" table, the "logstats" table (that contains the stats) is automatically updated using a database trigger.
+	The DbStats package is in charge of creating those triggers.</li>
+	<li><b>LogStats</b>: The log stats package is in charge of configuring the DbStats package to handle the "logs" table.</li>
+	<li><b>SmtpMailService</b>: This package is used to send the stats mails.</li>
+	<li><b>AdvancedLogger</b>: The AdvancedLogger is used to run SQL requests against the "logstats" table and display the results.</li>
+	<li><b>FilterLogger</b>: The FilterLogger is a package applying a filter to a message before logging it. By default, log messages do not have categories, so
+	displaying stats by categories is useless unless categories are filled. If you don't want to fill the category in your code, the FilterLogger package
+	can be used to add dynamically a category. By default, the first 30 characters of a log message are used as "category 1".</li>
+</ul>
+
