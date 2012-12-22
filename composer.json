@@ -1,7 +1,7 @@
 {
     "name": "mouf/utils.log.advanced-logger",
     "description": "This package can be used to perform advanced logging: the logs are stored in database (using the DBLogger), then are analysed and aggregated (using the LogStats package). This package provides a way to send a mail automatically every night to the admin, summarizing the logs of the day.",
-    "keywords": ["advanced logging", "log database", "aggregation", "mouf"],
+    "keywords": ["log database", "aggregation", "advanced logging", "mouf"],
     "homepage": "https://github.com/thecodingmachine/utils.log.advanced-logger",
     "type": "mouf-library",
     "license": "MIT",
